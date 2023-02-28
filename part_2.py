@@ -172,7 +172,7 @@ def compare_each_id_to_gene_id(part_1_result_dict, list_of_id_rawseq_geneid, igv
                                dssp_pdb_location_dict, pdb_seq_H_df, pdb_seq_KL_df, pdb_chain_compound_name_df):
     errors = []
     result_df = pd.DataFrame(
-        columns=['pdb_id', 'chain_id', 'location', 'gene', 'amino_acid_original', 'list_amino_acid_variants', 'compound'])
+        columns=['pdb_id', 'chain_id', 'location', 'gene', 'amino_acid_original', 'list_amino_acid_variants', 'description'])
 
     for pdb_chain, _, gene_id in list_of_id_rawseq_geneid:
         pdb, chain_id = pdb_chain.split(':')
@@ -233,7 +233,8 @@ def compare_each_id_to_gene_id(part_1_result_dict, list_of_id_rawseq_geneid, igv
             # than 2 unique values then check if they are in the list of positions_interact_with_antigen,
             # if yes, write to result dataframe
             gene_id_df = igv[igv['Id'] == gene_id]
-            compound_name = pdb_chain_compound_name_df[pdb_chain_compound_name_df['pdb'] == pdb.lower()]['compound']
+            compound_name = pdb_chain_compound_name_df[pdb_chain_compound_name_df['pdb'] == pdb.lower()]['compound'].item()
+            # print(compound_name)
             for col in gene_id_df.columns:
                 if len(gene_id_df[col].unique()) > 1:
                     if len(gene_id_df[col].unique()) == 2 and '-' in gene_id_df[col].unique():
@@ -250,7 +251,7 @@ def compare_each_id_to_gene_id(part_1_result_dict, list_of_id_rawseq_geneid, igv
                                    'gene': gene_id,
                                    'amino_acid_original': positions_interact_with_antigen_dict[chain_id + col],
                                    'list_amino_acid_variants': list_variants,
-                                   'compound': compound_name}
+                                   'description': compound_name}
                         result_df = result_df.append(new_row, ignore_index=True)
 
             global processed_list
