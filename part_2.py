@@ -172,7 +172,8 @@ def compare_each_id_to_gene_id(part_1_result_dict, list_of_id_rawseq_geneid, igv
                                dssp_pdb_location_dict, pdb_seq_H_df, pdb_seq_KL_df, pdb_chain_compound_name_df):
     errors = []
     result_df = pd.DataFrame(
-        columns=['pdb_id', 'chain_id', 'location', 'gene', 'amino_acid_original', 'list_amino_acid_variants', 'description'])
+        columns=['pdb_id', 'chain_id', 'location', 'gene', 'amino_acid_original', 'list_amino_acid_variants',
+                 'description', 'antigen_chain', 'antigen_species'])
 
     for pdb_chain, _, gene_id in list_of_id_rawseq_geneid:
         pdb, chain_id = pdb_chain.split(':')
@@ -236,6 +237,10 @@ def compare_each_id_to_gene_id(part_1_result_dict, list_of_id_rawseq_geneid, igv
             gene_id_df = igv[igv['Id'] == gene_id]
 
             compound_name = pdb_chain_compound_name_df[pdb_chain_compound_name_df['pdb'] == pdb.lower()]['compound'].item()
+            antigen_chain = pdb_chain_compound_name_df[pdb_chain_compound_name_df['pdb'] == pdb.lower()][
+                'antigen_chain'].item()
+            antigen_species = pdb_chain_compound_name_df[pdb_chain_compound_name_df['pdb'] == pdb.lower()][
+                'antigen_species'].item()
             # print(compound_name)
             for col in gene_id_df.columns:
                 if len(gene_id_df[col].unique()) > 1:
@@ -253,7 +258,9 @@ def compare_each_id_to_gene_id(part_1_result_dict, list_of_id_rawseq_geneid, igv
                                    'gene': gene_id,
                                    'amino_acid_original': positions_interact_with_antigen_dict[chain_id + col],
                                    'list_amino_acid_variants': list_variants,
-                                   'description': compound_name}
+                                   'description': compound_name,
+                                   'antigen_chain': antigen_chain,
+                                   'antigen_species': antigen_species}
                         result_df = result_df.append(new_row, ignore_index=True)
 
             global processed_list
@@ -277,7 +284,7 @@ def main():
     print(len(list_of_dict))
     list_of_id_rawseq_geneid = dict_to_geneid(list_of_dict)
 
-    pdb_chain_compound_name_df = pd.read_table('utils/pdb_with_only_one_chain_pairing_with_compound_name.tsv')
+    pdb_chain_compound_name_df = pd.read_table('utils/pdb_with_only_one_chain_pairing.tsv')
 
     igv_H_df = igv_csv_to_df('data/anarci_igv_output.csv_H.csv')
     igv_KL_df = igv_csv_to_df('data/anarci_igv_output.csv_KL.csv')
