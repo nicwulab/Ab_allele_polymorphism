@@ -32,6 +32,21 @@ class MyTestCase(unittest.TestCase):
 
         self.assertEqual(equal(anarci, dssp, 0, 0, []), False)
 
+    def test_is_equal_false_case_2(self):
+        anarci = [('H1', 'Q'), ('H2', 'V')]
+        dssp = [('H1', 'A'), ('H1', 'X')]
+
+        self.assertEqual(equal(anarci, dssp, 0, 0, []), False)
+
+    def test_is_equal_true_case_2(self):
+        anarci = [('H1', 'Q'), ('H2', 'V'), ('H3', 'Q'), ('H4', 'L'), ('H5', 'V'), ('H6', 'Q'), ('H7', 'S'),
+                  ('H8', 'G'), ('H9', 'A'), ('H11', 'E'), ('H12', 'V'), ('H13', 'K'), ('H14', 'K'), ('H15', 'P'),
+                  ('H16', 'G'), ('H17', 'S')]
+        dssp = [('H1', 'X'), ('H1', 'X'), ('H2', 'X'), ('H2', 'X'), ('H3', 'Q'), ('H1', 'X'), ('H1', 'X'), ('H4', 'L'),
+                ('H5', 'V'), ('H6', 'Q'), ('H7', 'S'), ('H8', 'G'), ('H9', 'X'), ('H10', 'E'), ('H11', 'V'), ('H12', 'K'),
+                ('H13', 'K'), ('H14', 'P'), ('H15', 'G'), ('H16', 'S')]
+        self.assertEqual(equal(anarci, dssp, 0, 0, []), True)
+
     def test_get_anarci_location_dict(self):
         pdb_chain = '6PHD:H'
         dssp_chain_locations = [('H1', 'A'), ('H2', 'V'), ('H3', 'Q'), ('H5', 'V'), ('H16', 'S')]
@@ -141,7 +156,8 @@ class MyTestCase(unittest.TestCase):
         start_index = 2
         end_index = 5
         position_to_index = {'H1': 0, 'H2': 1, 'H3': 2, 'H4': 3, 'H5': 4, 'H6': 5}
-        positions_interact_with_antigen_tuples = [('H1', 'E'), ('H2', 'V'), ('H3', 'Q'), ('H4', 'L'), ('H5', 'V'), ('H6', 'E')]
+        positions_interact_with_antigen_tuples = [('H1', 'E'), ('H2', 'V'), ('H3', 'Q'), ('H4', 'L'), ('H5', 'V'),
+                                                  ('H6', 'E')]
 
         adjusted_chain_locations, positions_interact_with_antigen_tuples = \
             trim_dssp_chain_and_part_1_result(dssp_pdb_location, start_index, end_index, position_to_index,
@@ -155,7 +171,8 @@ class MyTestCase(unittest.TestCase):
         start_index = 2
         end_index = 4
         position_to_index = {'H1': 0, 'H2': 1, 'H3': 2, 'H4': 3, 'H5': 4, 'H6': 5}
-        positions_interact_with_antigen_tuples = [('H1', 'E'), ('H2', 'V'), ('H3', 'Q'), ('H4', 'L'), ('H5', 'V'), ('H6', 'E')]
+        positions_interact_with_antigen_tuples = [('H1', 'E'), ('H2', 'V'), ('H3', 'Q'), ('H4', 'L'), ('H5', 'V'),
+                                                  ('H6', 'E')]
 
         adjusted_chain_locations, positions_interact_with_antigen_tuples = \
             trim_dssp_chain_and_part_1_result(dssp_pdb_location, start_index, end_index, position_to_index,

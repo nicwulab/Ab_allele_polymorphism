@@ -189,6 +189,7 @@ def compare_each_id_to_gene_id(part_1_result_dict, list_of_id_rawseq_geneid, igv
         igv, pdb_seq_df, chain_locations = get_igv_seq_df_dssp_chain(gene_id, dssp_pdb_location, igv_H_df, igv_KL_df,
                                                                      pdb_seq_H_df, pdb_seq_KL_df)
 
+
         pdb_seq_row = pdb_seq_df[pdb_seq_df['Id'] == pdb_chain]
 
         for index, row_data in pdb_seq_row.iterrows():
@@ -218,7 +219,7 @@ def compare_each_id_to_gene_id(part_1_result_dict, list_of_id_rawseq_geneid, igv
             if 'error' in dssp_location_to_anarci:
                 continue
 
-            # create map for interacting amino acid locations to ANARCI position
+            # map for interacting amino acid locations to ANARCI position
             for i in range(len(positions_interact_with_antigen_tuples)):
                 dssp_position, amino_acid_name = positions_interact_with_antigen_tuples[i]
                 if dssp_position in dssp_location_to_anarci:
@@ -233,6 +234,7 @@ def compare_each_id_to_gene_id(part_1_result_dict, list_of_id_rawseq_geneid, igv
             # than 2 unique values then check if they are in the list of positions_interact_with_antigen,
             # if yes, write to result dataframe
             gene_id_df = igv[igv['Id'] == gene_id]
+
             compound_name = pdb_chain_compound_name_df[pdb_chain_compound_name_df['pdb'] == pdb.lower()]['compound'].item()
             # print(compound_name)
             for col in gene_id_df.columns:
@@ -265,7 +267,6 @@ def compare_each_id_to_gene_id(part_1_result_dict, list_of_id_rawseq_geneid, igv
 
 def main():
     list_of_dict = helper.parse_pyir_output('results/part1/pdb_sequences.json')
-    test_list = ['7WEE:H','7JWB:D']
     # test_list = ['6IEA:L', '6M3B:C', '4HPO:L', '6IUT:L', '7SD5:L', '7SJP:H', '4YE4:L', '6VJN:L', '3H0T:A', '5HHV:L',
     #              '5HHX:L', '8DWA:L', '7M7B:L', '4XC3:L', '4XCF:H', '4RIS:L', '3JCB:B', '3JCC:B', '2H32:A', '5D70:L',
     #              '7TTY:L', '7TTX:L', '7TTM:L', '7JVA:L', '7D03:H', '7D6I:C', '6W7S:L', '7WO7:B', '7WOG:B', '7RP2:H',
