@@ -173,7 +173,7 @@ def compare_each_id_to_gene_id(part_1_result_dict, list_of_id_rawseq_geneid, igv
     errors = []
     result_df = pd.DataFrame(
         columns=['pdb_id', 'chain_id', 'location', 'gene', 'amino_acid_original', 'list_amino_acid_variants',
-                 'description', 'antigen_chain', 'antigen_species'])
+                 'description', 'antigen_name', 'antigen_chain', 'antigen_species'])
 
     for pdb_chain, _, gene_id in list_of_id_rawseq_geneid:
         pdb, chain_id = pdb_chain.split(':')
@@ -241,6 +241,8 @@ def compare_each_id_to_gene_id(part_1_result_dict, list_of_id_rawseq_geneid, igv
                 'antigen_chain'].item()
             antigen_species = pdb_chain_compound_name_df[pdb_chain_compound_name_df['pdb'] == pdb.lower()][
                 'antigen_species'].item()
+            antigen_name = pdb_chain_compound_name_df[pdb_chain_compound_name_df['pdb'] == pdb.lower()][
+                'antigen_name'].item()
             # print(compound_name)
             for col in gene_id_df.columns:
                 if len(gene_id_df[col].unique()) > 1:
@@ -259,6 +261,7 @@ def compare_each_id_to_gene_id(part_1_result_dict, list_of_id_rawseq_geneid, igv
                                    'amino_acid_original': positions_interact_with_antigen_dict[chain_id + col],
                                    'list_amino_acid_variants': list_variants,
                                    'description': compound_name,
+                                   'antigen_name': antigen_name,
                                    'antigen_chain': antigen_chain,
                                    'antigen_species': antigen_species}
                         result_df = result_df.append(new_row, ignore_index=True)
@@ -268,7 +271,7 @@ def compare_each_id_to_gene_id(part_1_result_dict, list_of_id_rawseq_geneid, igv
 
     print("errors", errors)
     print("errors count", len(errors))
-    result_df.to_csv('part_2_result_2_test.csv')
+    result_df.to_csv('part_2_result_228.csv')
     return
 
 
