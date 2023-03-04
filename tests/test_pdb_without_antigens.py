@@ -34,9 +34,10 @@ def parse_result_with_tuple(filename):
 unique_pdbs_no_antigen_df = parse_summary_file('../data/20230217_0084705_summary.tsv')
 print(unique_pdbs_no_antigen_df)
 
-result_dict = (parse_result_file('../results/part1/part_1_result.txt'))
+result_dict = (parse_result_file('../results/pdb_to_paratope/pdb_to_paratope_result.txt'))
 print(len(result_dict.keys()))
-result_dict_with_name = (parse_result_with_tuple('../results/part1/part_1_result_with_amino_acid_name.txt'))
+result_dict_with_name = (parse_result_with_tuple(
+    '../results/pdb_to_paratope/pdb_to_paratope_result_with_amino_acid_name.txt'))
 print(len(result_dict_with_name.keys()))
 count_elements = 0
 for k, v in result_dict_with_name.items():

@@ -1,5 +1,5 @@
 import unittest
-from part_2 import equal, get_anarci_location_for_part_1_result, igv_csv_to_df, pdb_seq_csv_to_df, dict_to_geneid, \
+from allelic_variant_at_paratope import equal, get_anarci_location_for_part_1_result, igv_csv_to_df, pdb_seq_csv_to_df, dict_to_geneid, \
     get_igv_seq_df_dssp_chain, get_positions_interact_with_antigen_from_part_1_result, trim_dssp_chain_and_part_1_result
 import pandas as pd
 import utils.helper as helper

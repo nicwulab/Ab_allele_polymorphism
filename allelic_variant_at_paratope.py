@@ -175,6 +175,18 @@ def compare_each_id_to_gene_id(part_1_result_dict, list_of_id_rawseq_geneid, igv
         columns=['pdb_id', 'chain_id', 'location', 'gene', 'amino_acid_original', 'list_amino_acid_variants',
                  'description', 'antigen_name', 'antigen_chain', 'antigen_species'])
 
+    result_with_dssp_loc_df = pd.DataFrame(
+        columns=['pdb_id', 'chain_id', 'location', 'dssp_location', 'gene', 'amino_acid_original',
+                 'list_amino_acid_variants', 'description', 'antigen_name', 'antigen_chain', 'antigen_species'])
+
+    result_filter_and_splitted_df = pd.DataFrame(
+        columns=['pdb_id', 'target'])
+
+    result_mul_rows_for_variant_df = pd.DataFrame(
+        columns=['pdb_id', 'chain_id', 'location', 'dssp_location', 'gene', 'amino_acid_original',
+                 'list_amino_acid_variants',
+                 'variants', 'description', 'antigen_name', 'antigen_chain', 'antigen_species'])
+
     for pdb_chain, _, gene_id in list_of_id_rawseq_geneid:
         pdb, chain_id = pdb_chain.split(':')
         if pdb.lower() not in part_1_result_dict:
@@ -217,6 +229,9 @@ def compare_each_id_to_gene_id(part_1_result_dict, list_of_id_rawseq_geneid, igv
             # after trimming chain_locations, map dssp location to anarci location
             dssp_location_to_anarci = get_anarci_location_for_part_1_result(pdb_chain, adjusted_chain_locations,
                                                                             row_data)
+
+            anarci_location_to_dssp = {value: key for key, value in dssp_location_to_anarci.items()}
+
             if 'error' in dssp_location_to_anarci:
                 continue
 
@@ -244,6 +259,9 @@ def compare_each_id_to_gene_id(part_1_result_dict, list_of_id_rawseq_geneid, igv
             antigen_name = pdb_chain_compound_name_df[pdb_chain_compound_name_df['pdb'] == pdb.lower()][
                 'antigen_name'].item()
             # print(compound_name)
+
+            targets = []
+
             for col in gene_id_df.columns:
                 if len(gene_id_df[col].unique()) > 1:
                     if len(gene_id_df[col].unique()) == 2 and '-' in gene_id_df[col].unique():
@@ -266,23 +284,66 @@ def compare_each_id_to_gene_id(part_1_result_dict, list_of_id_rawseq_geneid, igv
                                    'antigen_species': antigen_species}
                         result_df = result_df.append(new_row, ignore_index=True)
 
+                        new_row_with_dssp_loc = {'pdb_id': pdb,
+                                   'chain_id': chain_id,
+                                   'location': col,
+                                   'dssp_location': anarci_location_to_dssp[chain_id + col][
+                                                    1:] if chain_id + col in anarci_location_to_dssp else col,
+                                   'gene': gene_id,
+                                   'amino_acid_original': positions_interact_with_antigen_dict[chain_id + col],
+                                   'list_amino_acid_variants': list_variants,
+                                   'description': compound_name,
+                                   'antigen_name': antigen_name,
+                                   'antigen_chain': antigen_chain,
+                                   'antigen_species': antigen_species}
+
+                        result_with_dssp_loc_df = result_with_dssp_loc_df.append(new_row_with_dssp_loc, ignore_index=True)
+
+                        loc = anarci_location_to_dssp[chain_id + col][1:] \
+                            if chain_id + col in anarci_location_to_dssp else col
+                        if positions_interact_with_antigen_dict[chain_id + col] not in list_variants:
+                            continue
+                        for var in list_variants:
+                            if var == positions_interact_with_antigen_dict[chain_id + col]:
+                                continue
+                            if var != positions_interact_with_antigen_dict[chain_id + col]:
+                                new_row = {'pdb_id': pdb,
+                                           'chain_id': chain_id,
+                                           'location': col,
+                                           'dssp_location': anarci_location_to_dssp[chain_id + col][1:] if chain_id + col in anarci_location_to_dssp else col,
+                                           'gene': gene_id,
+                                           'amino_acid_original': positions_interact_with_antigen_dict[chain_id + col],
+                                           'list_amino_acid_variants': list_variants,
+                                           'variants': var,
+                                           'description': compound_name,
+                                           'antigen_name': antigen_name,
+                                           'antigen_chain': antigen_chain,
+                                           'antigen_species': antigen_species}
+                                result_mul_rows_for_variant_df = result_mul_rows_for_variant_df.append(new_row, ignore_index=True)
+
+                            target = positions_interact_with_antigen_dict[chain_id + col] + chain_id + loc + var
+                            targets.append(target)
+            if targets:
+                new_row = {'pdb_id': pdb,
+                            'chain_id': chain_id,
+                            'target': targets}
+                result_filter_and_splitted_df = result_filter_and_splitted_df.append(new_row, ignore_index=True)
+
             global processed_list
             processed_list.append(pdb_chain)
 
     print("errors", errors)
     print("errors count", len(errors))
-    result_df.to_csv('part_2_result_228.csv')
+    result_df.to_csv('results/allelic_variant_at_paratope/allelic_variant_at_paratope_result.csv')
+    result_with_dssp_loc_df.to_csv('results/allelic_variant_at_paratope/allelic_variant_at_paratope_result_with_dssp_loc_df.csv')
+    result_filter_and_splitted_df.to_csv('results/allelic_variant_at_paratope/allelic_variant_at_paratope_result_targets_df.csv')
+    result_mul_rows_for_variant_df.to_csv('results/allelic_variant_at_paratope/allelic_variant_at_paratope_result_splitted_df.csv')
     return
 
 
 def main():
-    list_of_dict = helper.parse_pyir_output('results/part1/pdb_sequences.json')
-    # test_list = ['6IEA:L', '6M3B:C', '4HPO:L', '6IUT:L', '7SD5:L', '7SJP:H', '4YE4:L', '6VJN:L', '3H0T:A', '5HHV:L',
-    #              '5HHX:L', '8DWA:L', '7M7B:L', '4XC3:L', '4XCF:H', '4RIS:L', '3JCB:B', '3JCC:B', '2H32:A', '5D70:L',
-    #              '7TTY:L', '7TTX:L', '7TTM:L', '7JVA:L', '7D03:H', '7D6I:C', '6W7S:L', '7WO7:B', '7WOG:B', '7RP2:H',
-    #              '7N4M:L', '5SY8:L']
+    list_of_dict = helper.parse_pyir_output('results/pdb_to_paratope/pdb_sequences.json')
     list_of_dict = [s for s in list_of_dict]
-    # list_of_dict = [s for s in list_of_dict if s['Sequence ID'] in test_list]
 
     print(len(list_of_dict))
     list_of_id_rawseq_geneid = dict_to_geneid(list_of_dict)
@@ -295,8 +356,9 @@ def main():
     pdb_seq_H_df = pdb_seq_csv_to_df('data/anarci_pdb_output.csv_H.csv')
     pdb_seq_KL_df = pdb_seq_csv_to_df('data/anarci_pdb_output.csv_KL.csv')
 
-    part_1_result_dict = helper.parse_result_with_tuple('results/part1/part_1_result_with_amino_acid_name.txt')
-    dssp_pdb_location_dict = helper.parse_result_with_tuple('results/part1/dssp_pdb_seq_location.txt')
+    part_1_result_dict = helper.parse_result_with_tuple(
+        'results/pdb_to_paratope/pdb_to_paratope_result_with_amino_acid_name.txt')
+    dssp_pdb_location_dict = helper.parse_result_with_tuple('results/pdb_to_paratope/dssp_pdb_seq_location.txt')
 
     compare_each_id_to_gene_id(part_1_result_dict, list_of_id_rawseq_geneid, igv_H_df, igv_KL_df,
                                dssp_pdb_location_dict, pdb_seq_H_df, pdb_seq_KL_df, pdb_chain_compound_name_df)

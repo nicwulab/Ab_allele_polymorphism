@@ -2,17 +2,18 @@ from Bio.PDB.PDBParser import PDBParser
 from Bio.PDB import PDBIO
 import pandas as pd
 from Bio.PDB.DSSP import DSSP
+import sys
 
 
 def parse_summary_file(filename):
     df = pd.read_table(filename)
     df = df.drop_duplicates(subset=['pdb'], keep=False)
     df_HL = df[['pdb', 'Hchain', 'Lchain', 'compound']]
-    df_HL.to_csv('pdb_with_only_one_chain_pairing.tsv', sep="\t")
+    df_HL.to_csv('utils/pdb_with_only_one_chain_pairing.tsv', sep="\t")
 
     return df_HL
 
-def parse_pdb_file(pdb_name, df, dir):
+def parse_pdb_file(pdb_name, df, dir, mkdssp_dir):
     file_format = '.pdb'
 
     p = PDBParser()
@@ -24,7 +25,7 @@ def parse_pdb_file(pdb_name, df, dir):
 
     model = structure[0]
 
-    dssp = DSSP(model, dir+pdb_name+file_format, '/Users/natalieso/Downloads/dssp-3.1.4/mkdssp')
+    dssp = DSSP(model, dir+pdb_name+file_format, mkdssp_dir)
 
     df_all_chain_id_to_asa = pd.DataFrame(columns=['chain_res_subres_id', 'asa', 'amino_acid'])
 
@@ -60,7 +61,7 @@ def parse_pdb_file(pdb_name, df, dir):
 
     model_removed = structure_vl_vh[0]
 
-    dssp_removed = DSSP(model_removed, output_file, '/Users/natalieso/Downloads/dssp-3.1.4/mkdssp')
+    dssp_removed = DSSP(model_removed, output_file, mkdssp_dir)
 
     df_remove_chain_id_to_asa = pd.DataFrame(columns=['chain_res_subres_id', 'asa_without_antigen', 'amino_acid'])
 
@@ -78,33 +79,40 @@ def parse_pdb_file(pdb_name, df, dir):
 
     return df3
 
-def get_positions():
+def get_positions(pdb_dir, summary_file, mkdssp_dir):
     # parse summary file to filter out duplicates
     # returns a df of pdbs with Hchain and Lchain
-    unique_pdbs_df = parse_summary_file('data/20230217_0084705_summary.tsv')
+    unique_pdbs_df = parse_summary_file(summary_file)
     pdb_list = unique_pdbs_df['pdb'].tolist()
 
     unique_pdbs_df.set_index("pdb", inplace=True)
 
-    testdir = '/Users/natalieso/Downloads/test1/'
-    dir = '/Users/natalieso/Downloads/20230217_0084705/'
+    dir = pdb_dir
 
     result_dict = dict()
 
     errors = list()
     for pdb in pdb_list:
         try:
-            result_df = parse_pdb_file(pdb, unique_pdbs_df, dir)
+            result_df = parse_pdb_file(pdb, unique_pdbs_df, dir, mkdssp_dir)
             result_df['pos_name'] = list(zip(result_df.chain_res_subres_id, result_df.amino_acid_y))
 
             result_dict[pdb] = result_df['pos_name'].tolist()
         except:
             errors.append(pdb)
 
-    with open('result_pdb_to_id.txt', 'w') as data:
+    with open('pdb_to_paratope_result_with_amino_acid_name.txt', 'w') as data:
         data.write(str(result_dict))
 
     print(errors)
 
-# get positions of interacting amino acids for each pdb with only one chain pairings
-get_positions()
+def main(pdb_dir, summary_file, mkdssp_dir):
+    # get positions of interacting amino acids for each pdb with only one chain pairings
+    get_positions(pdb_dir, summary_file, mkdssp_dir)
+
+if __name__ == "__main__":
+    pdb_dir = sys.argv[1]
+    summary_file = sys.argv[2]
+    mkdssp_dir = sys.argv[3]
+    main(pdb_dir, summary_file, mkdssp_dir)
+

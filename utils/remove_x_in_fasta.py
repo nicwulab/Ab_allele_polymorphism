@@ -16,3 +16,9 @@ def remove_x_in_fasta(input_file, output_file):
     output_file = output_file
     with open(output_file, "w") as handle:
         SeqIO.write(records, handle, "fasta")
+
+def main():
+    remove_x_in_fasta('results/pdb_to_paratope/pdb_sequences.fasta', 'results/pdb_to_paratope/pdb_sequences.fasta')
+
+if __name__ == "__main__":
+    main()
