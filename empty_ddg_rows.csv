@@ -1,9 +1,9 @@
-,pdb_id,chain_id,location,dssp_location,gene,amino_acid_original,list_amino_acid_variants,variants,description,antigen_name,antigen_chain,antigen_species,DDG
-17,1H0D,B,52A,52A,IGHV3-23,S,['G' 'S'],G,Crystal structure of Human Angiogenin in complex with Fab fragment of its monoclonal antibody mAb 26-2F,angiogenin,C,homo sapiens,
-211,7T73,H,52C,52C,IGHV3-15,T,['T' 'A'],A,HIV-1 Envelope ApexGT2.2MUT in complex with PCT64.LMCA Fab,hiv envelope apexgt2.2mut gp120 | hiv envelope apexgt2.2mut gp120 | hiv envelope apexgt2.2mut gp120,E | A | C,human immunodeficiency virus 1 | human immunodeficiency virus 1 | human immunodeficiency virus 1,
-276,6B0G,C,27D,27D,IGKV2-30,Y,['Y' 'H'],H,Crystal structure of Pfs25 in complex with the transmission blocking antibody 1245,25 kda ookinete surface antigen,E,plasmodium falciparum,
-439,6VBO,L,27D,27D,IGKV2-30,H,['Y' 'H'],Y,Crystal structure of anti-HIV-1 antibody DH813 bound to gp120 V2 peptide,envelope glycoprotein gp160,C,human immunodeficiency virus 1,
-702,6O39,B,52A,52A,IGHV3-23,S,['G' 'S'],G,Crystal structure of Frizzled 5 CRD in complex with F2.I Fab,frizzled-5,C,homo sapiens,
-856,5VZY,H,52A,52A,IGHV3-23,S,['G' 'S'],G,Crystal structure of crenezumab Fab in complex with Abeta,amyloid beta,A,homo sapiens,
-943,6PDU,L,27D,30A,IGKV2-30,H,['Y' 'H'],Y,Vaccine-elicited NHP FP-targeting antibody 13N024-a.01 in complex with HIV fusion peptide (residue 512-519),hiv-1 fusion peptide residue 512-519,C,human immunodeficiency virus 1,
-1153,3SO3,C,52A,52A,IGHV3-23,G,['G' 'S'],S,Structures of Fab-Protease Complexes Reveal a Highly Specific Non-Canonical Mechanism of Inhibition.,suppressor of tumorigenicity 14 protein,A,homo sapiens,
+,pdb_id,chain_id,location,dssp_location,gene,amino_acid_original,list_amino_acid_variants,variants,description,antigen_name,antigen_chain,antigen_species,resolution,DDG
+17,1H0D,B,52A,52A,IGHV3-23,S,['G' 'S'],G,Crystal structure of Human Angiogenin in complex with Fab fragment of its monoclonal antibody mAb 26-2F,angiogenin,C,homo sapiens,2.0,
+211,7T73,H,52C,52C,IGHV3-15,T,['T' 'A'],A,HIV-1 Envelope ApexGT2.2MUT in complex with PCT64.LMCA Fab,hiv envelope apexgt2.2mut gp120 | hiv envelope apexgt2.2mut gp120 | hiv envelope apexgt2.2mut gp120,E | A | C,human immunodeficiency virus 1 | human immunodeficiency virus 1 | human immunodeficiency virus 1,4.0,
+276,6B0G,C,27D,27D,IGKV2-30,Y,['Y' 'H'],H,Crystal structure of Pfs25 in complex with the transmission blocking antibody 1245,25 kda ookinete surface antigen,E,plasmodium falciparum,1.9,
+439,6VBO,L,27D,27D,IGKV2-30,H,['Y' 'H'],Y,Crystal structure of anti-HIV-1 antibody DH813 bound to gp120 V2 peptide,envelope glycoprotein gp160,C,human immunodeficiency virus 1,1.683,
+702,6O39,B,52A,52A,IGHV3-23,S,['G' 'S'],G,Crystal structure of Frizzled 5 CRD in complex with F2.I Fab,frizzled-5,C,homo sapiens,1.8,
+856,5VZY,H,52A,52A,IGHV3-23,S,['G' 'S'],G,Crystal structure of crenezumab Fab in complex with Abeta,amyloid beta,A,homo sapiens,2.32,
+943,6PDU,L,27D,30A,IGKV2-30,H,['Y' 'H'],Y,Vaccine-elicited NHP FP-targeting antibody 13N024-a.01 in complex with HIV fusion peptide (residue 512-519),hiv-1 fusion peptide residue 512-519,C,human immunodeficiency virus 1,1.953,
+1153,3SO3,C,52A,52A,IGHV3-23,G,['G' 'S'],S,Structures of Fab-Protease Complexes Reveal a Highly Specific Non-Canonical Mechanism of Inhibition.,suppressor of tumorigenicity 14 protein,A,homo sapiens,2.1,

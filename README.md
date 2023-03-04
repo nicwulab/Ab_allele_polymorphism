@@ -107,11 +107,11 @@ for example:
 2. Parse FoldX output and save DDG to CSV file.   
 ``python compute_ddG.py {foldx output directory}``   
 for example:
-``python compute_ddG.py /Users/natalieso/Downloads/part_3_remote/``
+``python compute_ddG.py /Users/natalieso/Downloads/foldx_remote/``
     - Output file:
       - [empty_ddg_rows.csv](empty_ddg_rows.csv)
-      - [part_3.csv](part_3.csv)  
-FoldX cannot handle any positions with non-integer numbering. part_3.csv only 
+      - [FoldX.csv](FoldX.csv)  
+FoldX cannot handle any positions with non-integer numbering. FoldX.csv only 
 includes DDG values when the mutation target location is an integer. 
 empty_ddg_rows.csv is the list where DDG was not calculated. The PDB files have 
 been modified to integer-only locations, saved to /data/modified_pdb_files, and then 

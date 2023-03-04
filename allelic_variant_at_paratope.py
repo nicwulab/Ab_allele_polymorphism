@@ -173,11 +173,11 @@ def compare_each_id_to_gene_id(part_1_result_dict, list_of_id_rawseq_geneid, igv
     errors = []
     result_df = pd.DataFrame(
         columns=['pdb_id', 'chain_id', 'location', 'gene', 'amino_acid_original', 'list_amino_acid_variants',
-                 'description', 'antigen_name', 'antigen_chain', 'antigen_species'])
+                 'description', 'antigen_name', 'antigen_chain', 'antigen_species', 'resolution'])
 
     result_with_dssp_loc_df = pd.DataFrame(
         columns=['pdb_id', 'chain_id', 'location', 'dssp_location', 'gene', 'amino_acid_original',
-                 'list_amino_acid_variants', 'description', 'antigen_name', 'antigen_chain', 'antigen_species'])
+                 'list_amino_acid_variants', 'description', 'antigen_name', 'antigen_chain', 'antigen_species', 'resolution'])
 
     result_filter_and_splitted_df = pd.DataFrame(
         columns=['pdb_id', 'target'])
@@ -185,7 +185,7 @@ def compare_each_id_to_gene_id(part_1_result_dict, list_of_id_rawseq_geneid, igv
     result_mul_rows_for_variant_df = pd.DataFrame(
         columns=['pdb_id', 'chain_id', 'location', 'dssp_location', 'gene', 'amino_acid_original',
                  'list_amino_acid_variants',
-                 'variants', 'description', 'antigen_name', 'antigen_chain', 'antigen_species'])
+                 'variants', 'description', 'antigen_name', 'antigen_chain', 'antigen_species', 'resolution'])
 
     for pdb_chain, _, gene_id in list_of_id_rawseq_geneid:
         pdb, chain_id = pdb_chain.split(':')
@@ -258,6 +258,9 @@ def compare_each_id_to_gene_id(part_1_result_dict, list_of_id_rawseq_geneid, igv
                 'antigen_species'].item()
             antigen_name = pdb_chain_compound_name_df[pdb_chain_compound_name_df['pdb'] == pdb.lower()][
                 'antigen_name'].item()
+
+            resolution = pdb_chain_compound_name_df[pdb_chain_compound_name_df['pdb'] == pdb.lower()][
+                'resolution'].item()
             # print(compound_name)
 
             targets = []
@@ -281,7 +284,8 @@ def compare_each_id_to_gene_id(part_1_result_dict, list_of_id_rawseq_geneid, igv
                                    'description': compound_name,
                                    'antigen_name': antigen_name,
                                    'antigen_chain': antigen_chain,
-                                   'antigen_species': antigen_species}
+                                   'antigen_species': antigen_species,
+                                   'resolution': resolution}
                         result_df = result_df.append(new_row, ignore_index=True)
 
                         new_row_with_dssp_loc = {'pdb_id': pdb,
@@ -295,7 +299,8 @@ def compare_each_id_to_gene_id(part_1_result_dict, list_of_id_rawseq_geneid, igv
                                    'description': compound_name,
                                    'antigen_name': antigen_name,
                                    'antigen_chain': antigen_chain,
-                                   'antigen_species': antigen_species}
+                                   'antigen_species': antigen_species,
+                                   'resolution': resolution}
 
                         result_with_dssp_loc_df = result_with_dssp_loc_df.append(new_row_with_dssp_loc, ignore_index=True)
 
@@ -318,7 +323,8 @@ def compare_each_id_to_gene_id(part_1_result_dict, list_of_id_rawseq_geneid, igv
                                            'description': compound_name,
                                            'antigen_name': antigen_name,
                                            'antigen_chain': antigen_chain,
-                                           'antigen_species': antigen_species}
+                                           'antigen_species': antigen_species,
+                                            'resolution': resolution}
                                 result_mul_rows_for_variant_df = result_mul_rows_for_variant_df.append(new_row, ignore_index=True)
 
                             target = positions_interact_with_antigen_dict[chain_id + col] + chain_id + loc + var

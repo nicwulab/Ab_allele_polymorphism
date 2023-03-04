@@ -64,7 +64,7 @@ def main(foldx_output_dir):
 
         empty_ddg_rows.to_csv('empty_ddg_rows.csv')
 
-        part_2_results.to_csv('part_3.csv')
+        part_2_results.to_csv('FoldX.csv')
     print('error', error)
 
 if __name__ == "__main__":
