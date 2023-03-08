@@ -7,6 +7,7 @@ from itertools import combinations
 from itertools import permutations
 
 
+# get antigen locations by ASA comparison
 def get_list_antigen_loc(pdb_dir, mkdssp_dir):
     result_df = pd.read_csv('results/compute_ddG/compute_ddG_result.csv', index_col=[0])
     pdb_chain_compound_name_df = pd.read_table('utils/pdb_with_only_one_chain_pairing.tsv')
@@ -79,9 +80,7 @@ def get_list_antigen_loc(pdb_dir, mkdssp_dir):
             f.close()
 
             model_removed = structure_vl_vh[0]
-
             dssp_removed = DSSP(model_removed, output_file, mkdssp_dir)
-
             df_remove_res_id_to_asa = pd.DataFrame(columns=['chain_res_subres_id', 'asa_without_antibody', 'amino_acid'])
 
             for i in range(len(list(dssp_removed.keys()))):
@@ -110,8 +109,8 @@ def get_list_antigen_loc(pdb_dir, mkdssp_dir):
     print(emptys)
 
 
+# handles comparison between two sets, tries all permutation to find the highest similarity
 def set_map(set1, set2):
-
     if len(set1) < len(set2):
         set1, set2 = set2, set1
     b = [i for i in range(len(set1))]
@@ -127,7 +126,6 @@ def set_map(set1, set2):
     for map in mappings:
         lst = [(k, v) for k, v in map.items()]
         mapping_tuples.append(lst)
-
 
     intersection_lenghts = []
     for tuples in mapping_tuples:
@@ -153,10 +151,12 @@ def set_map(set1, set2):
     matching_percent = max_intersection_length / (set_length / 2)
     return matching_percent
 
-def get_similarity_for_diff_chain_name(group_id, group_df, result_df, diff_chain):
+
+def get_similarity_for_group_df(group_id, group_df, result_df, diff_chain):
     first_chain_name_list = group_df['antigen_chain'].unique()[0].split('|')
     first_chain_name_list = [c.strip() for c in first_chain_name_list]
 
+    # build map for locations in different chains for all the pdbs in this group
     antigen_loc_lists = {}
     for index, row_data in group_df.iterrows():
         antigen_loc_list_df = row_data['antigen_loc_list'].split(',')
@@ -172,6 +172,7 @@ def get_similarity_for_diff_chain_name(group_id, group_df, result_df, diff_chain
 
             antigen_loc_lists[index][i] = chain_loc
 
+    # pairwise comparison for all the pdbs in this group, and assign group id
     group_ids = {}
     next_group_id = 1
 
@@ -212,11 +213,13 @@ def get_similarity_for_diff_chain_name(group_id, group_df, result_df, diff_chain
                 group_ids[list2] = next_group_id
                 next_group_id += 1
 
+    # for all the pdbs that aren't similar with any other, assign new group id
     for l in antigen_loc_lists.keys():
         if l not in group_ids:
             group_ids[l] = next_group_id
             next_group_id += 1
 
+    # write result to result_df
     for index, val in group_ids.items():
         result_df.loc[index, 'groupID'] = str(result_df.loc[index, 'groupID']) + '-' + str(val)
         group_df.loc[index, 'groupID'] = str(group_df.loc[index, 'groupID']) + '-' + str(val)
@@ -237,6 +240,8 @@ def get_group_id():
         if not isinstance(species_list, str):
             result_df.loc[index, 'antigen_species_id'] = None
             continue
+
+        # map species name to species id
         combo_map = {'HIV,Synthetic': 'HIV', 'SARS,Human': 'SARS', 'Rat,Human': 'Human', 'Malaria,Camelid': 'Malaria',
                      'HIV,Human': 'HIV'}
         if species_list in combo_map:
@@ -245,34 +250,32 @@ def get_group_id():
             continue
         species_list = species_list.split('|')
         species_list = [s.strip() for s in species_list]
-
         id_list = []
         for s in species_list:
             id = species_to_id_dict[s]
             id_list.append(id)
-
         id = id_list[0]
         result_df.loc[index, 'antigen_species_id'] = id
 
+    # group df by group id based on antigen species and gene
     def assign_group_id(df):
         return df.groupby(['antigen_species_id', 'gene']).ngroup()
-
     result_df['groupID'] = assign_group_id(result_df)
     grouped_df = result_df.groupby('groupID')
 
+    # for each group, do pairwise comparison
     for group_id, group_df in grouped_df:
-        print(group_id)
         if group_id == -1:
             continue
         pdb_list = group_df['pdb_id'].unique()
         if len(pdb_list) == 1:
             continue
         diff_chain = []
-        get_similarity_for_diff_chain_name(group_id, group_df, result_df, diff_chain)
+        get_similarity_for_group_df(group_id, group_df, result_df, diff_chain)
         continue
 
+    # write to result csv file
     unique_group_id = result_df['groupID'].unique().tolist()
-
     group_id_dict = {}
 
     for i in range(len(unique_group_id)):
@@ -286,7 +289,6 @@ def get_group_id():
 
 def main(pdb_dir, mkdssp_dir):
     get_list_antigen_loc(pdb_dir, mkdssp_dir)
-
     get_group_id()
 
 
