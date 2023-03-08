@@ -48,7 +48,6 @@ def get_list_antigen_loc(pdb_dir, mkdssp_dir):
             dssp = DSSP(model, pdb_dir + pdb_id + file_format, mkdssp_dir)
 
             antigen_chain_id_to_asa = pd.DataFrame(columns=['chain_res_subres_id', 'asa', 'amino_acid'])
-            # print(dssp.keys())
             for i in range(len(list(dssp.keys()))):
                 chain_res_subres_id = str(dssp.keys()[i][0]) + str(dssp.keys()[i][1][1]) + str(dssp.keys()[i][1][2])
                 if str(dssp.keys()[i][0]) in antigen_chain_id:
@@ -95,7 +94,7 @@ def get_list_antigen_loc(pdb_dir, mkdssp_dir):
 
             df2 = pd.merge(antigen_chain_id_to_asa, df_remove_res_id_to_asa, on=['chain_res_subres_id'])
             df3 = df2[df2['asa'] < df2['asa_without_antibody']]
-            print(df3)
+
             antigen_chain_res_subres_id_list = df3['chain_res_subres_id']
 
             antigen_chain_res_subres_id_list = [s.strip() for s in antigen_chain_res_subres_id_list.tolist()]
@@ -110,42 +109,6 @@ def get_list_antigen_loc(pdb_dir, mkdssp_dir):
     print(errors)
     print(emptys)
 
-# def set_map_1(set1, set2):
-#     import itertools
-#
-#     intersection_lenghts = [[0 for j in range(len(set1))] for i in range(len(set1))]
-#
-#     for i in range(len(set1)):
-#         for j in range(len(set2)):
-#             intersection_lenghts[i][j] = len(set1[i].intersection(set2[j]))
-#     a = [i for i in range(len(set1))]
-#
-#     permutations = itertools.permutations(a)
-#     mappings = []
-#     for p in permutations:
-#         mapping = tuple(zip(a, p))
-#         mappings.append(mapping)
-#
-#     max_intersection_length = 0
-#     max_intersection_combo = ()
-#
-#     for t in mappings:
-#         local_intersection_length = 0
-#         for mapping in t:
-#             local_intersection_length += intersection_lenghts[mapping[0]][mapping[1]]
-#         if local_intersection_length > max_intersection_length:
-#             max_intersection_length = local_intersection_length
-#             max_intersection_combo = t
-#
-#     set_length = 0
-#     for s in set1:
-#         set_length += len(s)
-#     for s in set2:
-#         set_length += len(s)
-#
-#     matching_percent = max_intersection_length / (set_length / 2)
-#
-#     return matching_percent
 
 def set_map(set1, set2):
 
@@ -163,17 +126,16 @@ def set_map(set1, set2):
 
     for map in mappings:
         lst = [(k, v) for k, v in map.items()]
-        # print(lst)
         mapping_tuples.append(lst)
-    # print(mappings)
-    # print(mapping_tuples)
+
+
     intersection_lenghts = []
     for tuples in mapping_tuples:
         inter = []
         for t0, t1 in tuples:
             inter.append(len(set1[t1].intersection(set2[t0])))
         intersection_lenghts.append(inter)
-    # print('lengths', intersection_lenghts)
+
     max_intersection_length = 0
     max_intersection_combo = ()
 
@@ -187,7 +149,7 @@ def set_map(set1, set2):
         set_length += len(s)
     for s in set2:
         set_length += len(s)
-    # print(set_length)
+
     matching_percent = max_intersection_length / (set_length / 2)
     return matching_percent
 
@@ -209,7 +171,7 @@ def get_similarity_for_diff_chain_name(group_id, group_df, result_df, diff_chain
                     chain_loc.append(antigen_loc[1:])
 
             antigen_loc_lists[index][i] = chain_loc
-    print(antigen_loc_lists)
+
     group_ids = {}
     next_group_id = 1
 
@@ -228,7 +190,7 @@ def get_similarity_for_diff_chain_name(group_id, group_df, result_df, diff_chain
             set2.append(set(p))
 
         matching_percent = set_map(set1, set2)
-        print(list1, list2, matching_percent)
+
         if matching_percent >= 0.8:
             if list1 in group_ids and list2 in group_ids:
                 # Merge the two groups into a single group
@@ -258,7 +220,6 @@ def get_similarity_for_diff_chain_name(group_id, group_df, result_df, diff_chain
     for index, val in group_ids.items():
         result_df.loc[index, 'groupID'] = str(result_df.loc[index, 'groupID']) + '-' + str(val)
         group_df.loc[index, 'groupID'] = str(group_df.loc[index, 'groupID']) + '-' + str(val)
-    print(group_df)
 
 
 def get_group_id():
@@ -289,31 +250,24 @@ def get_group_id():
         for s in species_list:
             id = species_to_id_dict[s]
             id_list.append(id)
-        if len(set(id_list)) > 1:
-            print(id_list)
-        id = id_list[0]
 
+        id = id_list[0]
         result_df.loc[index, 'antigen_species_id'] = id
 
     def assign_group_id(df):
         return df.groupby(['antigen_species_id', 'gene']).ngroup()
 
     result_df['groupID'] = assign_group_id(result_df)
-
     grouped_df = result_df.groupby('groupID')
 
     for group_id, group_df in grouped_df:
         print(group_id)
         if group_id == -1:
             continue
-        # print(group_df)
         pdb_list = group_df['pdb_id'].unique()
-        # print(pdb_list)
         if len(pdb_list) == 1:
             continue
-
         diff_chain = []
-
         get_similarity_for_diff_chain_name(group_id, group_df, result_df, diff_chain)
         continue
 
@@ -326,10 +280,9 @@ def get_group_id():
             continue
         group_id_dict[unique_group_id[i]] = str(int(i + 1))
 
-    print(group_id_dict)
     result_df['groupID'] = result_df['groupID'].map(group_id_dict)
-
     result_df.to_csv('epitope_identification_with_group_id.csv')
+
 
 def main(pdb_dir, mkdssp_dir):
     get_list_antigen_loc(pdb_dir, mkdssp_dir)
