@@ -226,7 +226,7 @@ def get_similarity_for_group_df(group_id, group_df, result_df, diff_chain):
 
 
 def get_group_id():
-    species_id_df = pd.read_csv('species_ID.csv')
+    species_id_df = pd.read_csv('utils/species_ID.csv')
     species_id_df = species_id_df.drop('Unnamed: 2', axis=1)
     species_id_df = species_id_df.drop('Unnamed: 3', axis=1)
     species_id_df = species_id_df.drop('Unnamed: 4', axis=1)
