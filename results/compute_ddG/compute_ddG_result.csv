@@ -63,9 +63,9 @@
 61,7E3B,B,50,50,IGHV4-59,Y,['Y' 'R'],R,SARS-Cov-2 spike in complex with the Ab5 neutralizing antibody (focused refinement on Fab-RBD),spike protein s1,A,severe acute respiratory syndrome coronavirus2,4.2,4.06914
 62,7E3B,B,53,53,IGHV4-59,Y,['Y' 'T'],T,SARS-Cov-2 spike in complex with the Ab5 neutralizing antibody (focused refinement on Fab-RBD),spike protein s1,A,severe acute respiratory syndrome coronavirus2,4.2,1.43381
 63,7E3B,B,58,58,IGHV4-59,N,['N' 'Y'],Y,SARS-Cov-2 spike in complex with the Ab5 neutralizing antibody (focused refinement on Fab-RBD),spike protein s1,A,severe acute respiratory syndrome coronavirus2,4.2,-1.04981
-64,7E+39,C,31,31,IGHV3-33,S,['S' 'R'],R,SARS-CoV-2 spike in complex with the Ab4 neutralizing antibody (State 3),spike protein s1,A,severe acute respiratory syndrome coronavirus2,3.7,-0.853576
-65,7E+39,C,35,35,IGHV3-33,H,['H' 'Y'],Y,SARS-CoV-2 spike in complex with the Ab4 neutralizing antibody (State 3),spike protein s1,A,severe acute respiratory syndrome coronavirus2,3.7,587.106
-66,7E+39,C,52,52,IGHV3-33,W,['W' 'S'],S,SARS-CoV-2 spike in complex with the Ab4 neutralizing antibody (State 3),spike protein s1,A,severe acute respiratory syndrome coronavirus2,3.7,-1.3641
+64,7E39,C,31,31,IGHV3-33,S,['S' 'R'],R,SARS-CoV-2 spike in complex with the Ab4 neutralizing antibody (State 3),spike protein s1,A,severe acute respiratory syndrome coronavirus2,3.7,-0.853576
+65,7E39,C,35,35,IGHV3-33,H,['H' 'Y'],Y,SARS-CoV-2 spike in complex with the Ab4 neutralizing antibody (State 3),spike protein s1,A,severe acute respiratory syndrome coronavirus2,3.7,587.106
+66,7E39,C,52,52,IGHV3-33,W,['W' 'S'],S,SARS-CoV-2 spike in complex with the Ab4 neutralizing antibody (State 3),spike protein s1,A,severe acute respiratory syndrome coronavirus2,3.7,-1.3641
 67,8DLX,H,26,26,IGHV3-30,G,['G' 'A'],A,Cryo-EM structure of SARS-CoV-2 Epsilon (B.1.429) spike protein in complex with VH ab6,spike glycoprotein | spike glycoprotein,C | A,severe acute respiratory syndrome coronavirus2  | severe acute respiratory syndrome coronavirus2,0,5.18703
 68,8DLX,H,94,97,IGHV3-30,R,['R' 'K'],K,Cryo-EM structure of SARS-CoV-2 Epsilon (B.1.429) spike protein in complex with VH ab6,spike glycoprotein | spike glycoprotein,C | A,severe acute respiratory syndrome coronavirus2  | severe acute respiratory syndrome coronavirus2,0,1.1262
 69,8DLR,H,54,74,IGHV1-69,L,['F' 'L'],F,Cryo-EM structure of SARS-CoV-2 Gamma (P.1) spike protein in complex with Fab 4-8 (focused refinement of NTD and 4-8),spike glycoprotein,A,severe acute respiratory syndrome coronavirus2,0,1.12757
@@ -77,7 +77,7 @@
 75,7EKK,H,50,50,IGHV1-69,G,['G' 'R'],R,Anti-HIV-1 broadly neutralizing antibody delta-loop 4E10 modified with pyrene acetamide,mper region of the envelope glycoprotein gp41 from hiv-1,P,human immunodeficiency virus 1,1.7,13.3295
 76,7EKK,H,54,54,IGHV1-69,L,['F' 'L'],F,Anti-HIV-1 broadly neutralizing antibody delta-loop 4E10 modified with pyrene acetamide,mper region of the envelope glycoprotein gp41 from hiv-1,P,human immunodeficiency virus 1,1.7,0.287765
 77,7EKK,H,56,56,IGHV1-69,I,['T' 'I'],T,Anti-HIV-1 broadly neutralizing antibody delta-loop 4E10 modified with pyrene acetamide,mper region of the envelope glycoprotein gp41 from hiv-1,P,human immunodeficiency virus 1,1.7,1.33499
-78,BYR 7,L,50,50,IGKV1-5,K,['D' 'K'],D,BD23-Fab in complex with the S ectodomain trimer,sars-cov-2 spike glycoprotein,B,severe acute respiratory syndrome coronavirus2,3.84,0.713908
+78,7BYR,L,50,50,IGKV1-5,K,['D' 'K'],D,BD23-Fab in complex with the S ectodomain trimer,sars-cov-2 spike glycoprotein,B,severe acute respiratory syndrome coronavirus2,3.84,0.713908
 79,7N8I,H,33,33,IGHV3-30,G,['A' 'G'],A,SARS-CoV-2 S (B.1.429 / epsilon variant) + S2M11 + S2L20 (Local Refinement of the NTD/S2L20),spike glycoprotein,A,severe acute respiratory syndrome coronavirus2,3,1.51092
 80,7N8I,H,52,52,IGHV3-30,R,['S' 'R'],S,SARS-CoV-2 S (B.1.429 / epsilon variant) + S2M11 + S2L20 (Local Refinement of the NTD/S2L20),spike glycoprotein,A,severe acute respiratory syndrome coronavirus2,3,-0.40409
 81,6PWU,H,26,26,IGHV3-30,G,['G' 'A'],A,"Structure of full-length, fully glycosylated, non-modified HIV-1 gp160 bound to PG16 Fab",envelope glycoprotein gp160 | envelope glycoprotein gp160 | envelope glycoprotein gp160,A | C | E,human immunodeficiency virus 1 | human immunodeficiency virus 1 | human immunodeficiency virus 1,6.2,5.6728
@@ -592,14 +592,14 @@
 587,5WT9,H,52,52,IGHV3-33,W,['W' 'S'],S,Complex structure of PD-1 and nivolumab-Fab,programmed cell death protein 1,G,homo sapiens,2.401,2.36079
 588,2NY3,D,54,3055,IGHV1-69,L,['F' 'L'],F,"HIV-1 gp120 Envelope Glycoprotein (K231C, T257S, E267C, S334A, S375W) Complexed with CD4 and Antibody 17b",envelope glycoprotein gp120,A,human immunodeficiency virus 1,2.0,0.0153322
 589,3K2U,H,54,54,IGHV3-66,G,['G' 'C'],C,Crystal structure of HGFA in complex with the allosteric inhibitory antibody Fab40,hepatocyte growth factor activator long chain,A,homo sapiens,2.35,6.17939
-590,7E+23,B,23,23,IGHV4-34,A,['A' 'G'],G,SARS-CoV-2 spike in complex with the CA521 neutralizing antibody Fab (focused refinement on Fab-RBD),spike protein s1,A,severe acute respiratory syndrome coronavirus2,3.3,0.234566
-591,7E+23,B,24,24,IGHV4-34,V,['V' 'G'],G,SARS-CoV-2 spike in complex with the CA521 neutralizing antibody Fab (focused refinement on Fab-RBD),spike protein s1,A,severe acute respiratory syndrome coronavirus2,3.3,3.41609
-592,7E+23,B,25,25,IGHV4-34,Y,['Y' 'S'],S,SARS-CoV-2 spike in complex with the CA521 neutralizing antibody Fab (focused refinement on Fab-RBD),spike protein s1,A,severe acute respiratory syndrome coronavirus2,3.3,2.0772
-593,7E+23,B,26,26,IGHV4-34,G,['G' 'F'],F,SARS-CoV-2 spike in complex with the CA521 neutralizing antibody Fab (focused refinement on Fab-RBD),spike protein s1,A,severe acute respiratory syndrome coronavirus2,3.3,16.335
-594,7E+23,B,29,29,IGHV4-34,F,['F' 'V' 'Y'],V,SARS-CoV-2 spike in complex with the CA521 neutralizing antibody Fab (focused refinement on Fab-RBD),spike protein s1,A,severe acute respiratory syndrome coronavirus2,3.3,2.55436
-595,7E+23,B,29,29,IGHV4-34,F,['F' 'V' 'Y'],Y,SARS-CoV-2 spike in complex with the CA521 neutralizing antibody Fab (focused refinement on Fab-RBD),spike protein s1,A,severe acute respiratory syndrome coronavirus2,3.3,0.663093
-596,7E+23,B,30,30,IGHV4-34,S,['S' 'Y'],Y,SARS-CoV-2 spike in complex with the CA521 neutralizing antibody Fab (focused refinement on Fab-RBD),spike protein s1,A,severe acute respiratory syndrome coronavirus2,3.3,0.206971
-597,7E+23,B,32,32,IGHV4-34,Y,['Y' 'S'],S,SARS-CoV-2 spike in complex with the CA521 neutralizing antibody Fab (focused refinement on Fab-RBD),spike protein s1,A,severe acute respiratory syndrome coronavirus2,3.3,0.248421
+590,7E23,B,23,23,IGHV4-34,A,['A' 'G'],G,SARS-CoV-2 spike in complex with the CA521 neutralizing antibody Fab (focused refinement on Fab-RBD),spike protein s1,A,severe acute respiratory syndrome coronavirus2,3.3,0.234566
+591,7E23,B,24,24,IGHV4-34,V,['V' 'G'],G,SARS-CoV-2 spike in complex with the CA521 neutralizing antibody Fab (focused refinement on Fab-RBD),spike protein s1,A,severe acute respiratory syndrome coronavirus2,3.3,3.41609
+592,7E23,B,25,25,IGHV4-34,Y,['Y' 'S'],S,SARS-CoV-2 spike in complex with the CA521 neutralizing antibody Fab (focused refinement on Fab-RBD),spike protein s1,A,severe acute respiratory syndrome coronavirus2,3.3,2.0772
+593,7E23,B,26,26,IGHV4-34,G,['G' 'F'],F,SARS-CoV-2 spike in complex with the CA521 neutralizing antibody Fab (focused refinement on Fab-RBD),spike protein s1,A,severe acute respiratory syndrome coronavirus2,3.3,16.335
+594,7E23,B,29,29,IGHV4-34,F,['F' 'V' 'Y'],V,SARS-CoV-2 spike in complex with the CA521 neutralizing antibody Fab (focused refinement on Fab-RBD),spike protein s1,A,severe acute respiratory syndrome coronavirus2,3.3,2.55436
+595,7E23,B,29,29,IGHV4-34,F,['F' 'V' 'Y'],Y,SARS-CoV-2 spike in complex with the CA521 neutralizing antibody Fab (focused refinement on Fab-RBD),spike protein s1,A,severe acute respiratory syndrome coronavirus2,3.3,0.663093
+596,7E23,B,30,30,IGHV4-34,S,['S' 'Y'],Y,SARS-CoV-2 spike in complex with the CA521 neutralizing antibody Fab (focused refinement on Fab-RBD),spike protein s1,A,severe acute respiratory syndrome coronavirus2,3.3,0.206971
+597,7E23,B,32,32,IGHV4-34,Y,['Y' 'S'],S,SARS-CoV-2 spike in complex with the CA521 neutralizing antibody Fab (focused refinement on Fab-RBD),spike protein s1,A,severe acute respiratory syndrome coronavirus2,3.3,0.248421
 598,7ZBU,H,33,33,IGHV3-30,G,['A' 'G'],A,CryoEM structure of SARS-CoV-2 spike monomer in complex with neutralising antibody P008_60,spike glycoprotein,A,severe acute respiratory syndrome coronavirus2,0,0.223118
 599,7ZBU,H,50,50,IGHV3-30,V,['V' 'F'],F,CryoEM structure of SARS-CoV-2 spike monomer in complex with neutralising antibody P008_60,spike glycoprotein,A,severe acute respiratory syndrome coronavirus2,0,10.3587
 600,7ZBU,H,52,52,IGHV3-30,S,['S' 'R'],R,CryoEM structure of SARS-CoV-2 spike monomer in complex with neutralising antibody P008_60,spike glycoprotein,A,severe acute respiratory syndrome coronavirus2,0,12.1541
@@ -903,9 +903,9 @@
 896,7MZL,H,31,31,IGHV4-34,G,['G' 'W'],W,SARS-CoV-2 receptor binding domain bound to Fab PDI 210,spike protein s1,A,severe acute respiratory syndrome coronavirus2,3.7,1.71484
 897,7MZL,H,32,32,IGHV4-34,Y,['Y' 'S'],S,SARS-CoV-2 receptor binding domain bound to Fab PDI 210,spike protein s1,A,severe acute respiratory syndrome coronavirus2,3.7,3.21886
 898,7MZL,H,50,50,IGHV4-34,E,['E' 'Y'],Y,SARS-CoV-2 receptor binding domain bound to Fab PDI 210,spike protein s1,A,severe acute respiratory syndrome coronavirus2,3.7,7.01802
-899,MZM 7.00,H,54,55,IGHV3-11,S,['G' 'S'],G,SARS-CoV-2 receptor binding domain bound to Fab PDI 215,spike protein s1,A,severe acute respiratory syndrome coronavirus2,2.3,-3.15688
-900,MZM 7.00,H,57,58,IGHV3-11,T,['I' 'T'],I,SARS-CoV-2 receptor binding domain bound to Fab PDI 215,spike protein s1,A,severe acute respiratory syndrome coronavirus2,2.3,-1.57302
-901,MZM 7.00,H,58,59,IGHV3-11,N,['Y' 'N'],Y,SARS-CoV-2 receptor binding domain bound to Fab PDI 215,spike protein s1,A,severe acute respiratory syndrome coronavirus2,2.3,-0.688984
+899,7MZM,H,54,55,IGHV3-11,S,['G' 'S'],G,SARS-CoV-2 receptor binding domain bound to Fab PDI 215,spike protein s1,A,severe acute respiratory syndrome coronavirus2,2.3,-3.15688
+900,7MZM,H,57,58,IGHV3-11,T,['I' 'T'],I,SARS-CoV-2 receptor binding domain bound to Fab PDI 215,spike protein s1,A,severe acute respiratory syndrome coronavirus2,2.3,-1.57302
+901,7MZM,H,58,59,IGHV3-11,N,['Y' 'N'],Y,SARS-CoV-2 receptor binding domain bound to Fab PDI 215,spike protein s1,A,severe acute respiratory syndrome coronavirus2,2.3,-0.688984
 902,4NZR,H,1,1,IGHV4-39,Q,['Q' 'R'],R,Crystal structure of the antibody-binding region of Protein M (Protein M TD) in complex with anti-HIV antibody PGT135 Fab,protein m td,M,mycoplasma genitalium,1.65,0.91636
 903,4NZR,H,26,26,IGHV4-39,G,['G' 'S'],S,Crystal structure of the antibody-binding region of Protein M (Protein M TD) in complex with anti-HIV antibody PGT135 Fab,protein m td,M,mycoplasma genitalium,1.65,5.3636
 904,4NZT,L,43,43,IGLV1-44,A,['A' 'G'],G,Crystal structure of the antibody-binding region of Protein M (Protein M TD) in complex with anti-infleunza hemagglutinin antibody CR9114 Fab,protein m td,M,mycoplasma genitalium,2.497,1.03253
