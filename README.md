@@ -119,3 +119,16 @@ run through FoldX separately. The resulting DDG values were inputted to
 results/compute_ddG/compute_ddG_result.csv
     - Output file:
       - [results/compute_ddG/compute_ddG_result.csv](results/compute_ddG/compute_ddG_result.csv)
+
+## Epitope Identification
+
+1. Run epitope_identification.py to get list of epitope along with a group ID for each entry in results/compute_ddG/compute_ddG_result.csv.   
+``python epitope_identification.py {pdb_dir} {mkdssp_dir}``   
+for example:
+``python epitope_identification.py /Users/natalieso/Downloads/20230217_0084705/ /Users/natalieso/Downloads/dssp-3.1.4/mkdssp``
+    - Input file:
+      - [results/compute_ddG/compute_ddG_result.csv](results/compute_ddG/compute_ddG_result.csv)
+
+    - Output files:
+      - [results/epitope_idenfication/epitope_identification.csv](results/epitope_idenfication/epitope_identification.csv)
+      - [results/epitope_idenfication/epitope_identification_with_group_id.csv](results/epitope_idenfication/epitope_identification_with_group_id.csv)  

@@ -104,7 +104,7 @@ def get_list_antigen_loc(pdb_dir, mkdssp_dir):
         except:
             errors.append((index, row_data['pdb_id'].lower()))
 
-    result_df.to_csv('epitope_identification.csv')
+    result_df.to_csv('results/epitope_idenfication/epitope_identification.csv')
     print(errors)
     print(emptys)
 
@@ -233,7 +233,7 @@ def get_group_id():
 
     species_to_id_dict = dict(zip(species_id_df.species, species_id_df.ID))
 
-    result_df = pd.read_csv('epitope_identification.csv', index_col=[0])
+    result_df = pd.read_csv('results/epitope_idenfication/epitope_identification.csv', index_col=[0])
 
     for index, row_data in result_df.iterrows():
         species_list = row_data['antigen_species']
@@ -284,7 +284,7 @@ def get_group_id():
         group_id_dict[unique_group_id[i]] = str(int(i + 1))
 
     result_df['groupID'] = result_df['groupID'].map(group_id_dict)
-    result_df.to_csv('epitope_identification_with_group_id.csv')
+    result_df.to_csv('results/epitope_idenfication/epitope_identification_with_group_id.csv')
 
 
 def main(pdb_dir, mkdssp_dir):
