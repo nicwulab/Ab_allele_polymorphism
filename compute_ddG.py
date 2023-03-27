@@ -29,7 +29,7 @@ def main(foldx_output_dir):
         'results/allelic_variant_at_paratope/allelic_variant_at_paratope_result_splitted_df.csv', index_col=[0])
     error = []
     for pdb in pdb_list:
-
+        original_dict = dict()
         filename = 'PS_'+pdb.lower()+'_scanning_output.txt'
         try:
             file1 = open(dir+filename, 'r')
@@ -53,12 +53,17 @@ def main(foldx_output_dir):
             target = target if target not in amino_acid_name_to_abbreviation else amino_acid_name_to_abbreviation[target]
 
             if original_abbreviation == target:
+                original_dict[(original_abbreviation, loc_str, target)] = float(val.strip())
                 continue
+
+            subtraction = float(val.strip()) - original_dict[(original_abbreviation, loc_str, original_abbreviation)]
+            if 'nan' in val:
+                subtraction = val
 
             part_2_results.loc[(part_2_results['pdb_id'] == pdb) & (part_2_results['chain_id'] == chain)
                                               & (part_2_results['dssp_location'] == loc_str) &
                                               (part_2_results['amino_acid_original'] == original_abbreviation) &
-                               (part_2_results['variants'] == target), 'DDG'] = val
+                               (part_2_results['variants'] == target), 'DDG'] = subtraction
 
         empty_ddg_rows = part_2_results.loc[pd.isnull(part_2_results['DDG']) | (part_2_results['DDG'] == ''), :]
 
