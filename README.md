@@ -132,3 +132,57 @@ for example:
     - Output files:
       - [results/epitope_idenfication/epitope_identification.csv](results/epitope_idenfication/epitope_identification.csv)
       - [results/epitope_idenfication/epitope_identification_with_group_id.csv](results/epitope_idenfication/epitope_identification_with_group_id.csv)  
+
+## Baseline Variation
+
+1. Run baseline_variation.py to get baseline variation with [data/anarci_igv_output.csv_H.csv](data/anarci_igv_output.csv_H.csv) and [data/anarci_igv_output.csv_KL.csv](data/anarci_igv_output.csv_KL.csv) for each entry in results/epitope_idenfication/epitope_identification_with_group_id.csv.   
+``python baseline_variation.py``   
+    - Input file:
+      - [data/all_paired_antibodies_from_GB_v6.csv](data/all_paired_antibodies_from_GB_v6.csv)
+      - [data/anarci_igv_output.csv_H.csv](data/anarci_igv_output.csv_H.csv)
+      - [data/anarci_igv_output.csv_KL.csv](data/anarci_igv_output.csv_KL.csv)
+      - [results/epitope_idenfication/epitope_identification_with_group_id.csv](results/epitope_idenfication/epitope_identification_with_group_id.csv)
+
+    - Output files:
+      - [results/epitope_identification_with_baseline_variation.csv](results/epitope_identification_with_baseline_variation.csv)
+
+## Compute Antibody DDG
+
+1. Run utils/remove_chains.py to remove chains other than antibody chains for all PDBs  
+``python utils/remove_chains.py {pdb_dir} {summary_file} {output_dir}``
+2. Run FoldX on list of PDB with only antibody chains. Run this in the directory where you want to store the FoldX outputs.   
+``python compute_ddG_foldx_script.py {pdb_dir}``   
+for example:
+``python compute_ddG_foldx_script.py /Users/natalieso/Downloads/pdb_antibodies_only/``
+    - Output files:
+      - List of FoldX outputs containing DDG values
+
+3. Parse FoldX output and save DDG to CSV file.   
+``python compute_ddG_antidody.py {foldx output directory}``   
+for example:
+``python compute_ddG_antidody.py /Users/natalieso/Downloads/part_3_remote/``
+    - Output file:
+      - [empty_ddg_rows.csv](empty_ddg_rows.csv)
+      - [FoldX.csv](FoldX.csv)  
+FoldX cannot handle any positions with non-integer numbering. FoldX.csv only 
+includes DDG values when the mutation target location is an integer. 
+empty_ddg_rows.csv is the list where DDG was not calculated. The PDB files have 
+been modified to integer-only locations, saved to /data/modified_pdb_files_antibody_only, and then 
+run through FoldX separately. The resulting DDG values were inputted to 
+results/epitope_identification_with_antibody_only_ddgs.csv
+    - Output file:
+      - [results/epitope_identification_with_antibody_only_ddgs.csv](results/epitope_identification_with_antibody_only_ddgs.csv)
+
+## Add DSSP RSA
+
+1. Run add_antibody_dssp.py to get RSA from DSSP for each entry in results/epitope_identification_with_antibody_only_ddgs.csv.   
+``python add_antibody_dssp.py {pdb_dir} {mkdssp_dir}``   
+for example:
+``python add_antibody_dssp.py /Users/natalieso/Downloads/20230217_0084705/ /Users/natalieso/Downloads/dssp-3.1.4/mkdssp``
+    - Input file:
+      - [results/epitope_identification_with_antibody_only_ddgs.csv](results/epitope_identification_with_antibody_only_ddgs.csv)
+
+    - Output files:
+      - [results/add_dssp_area.csv](results/add_dssp_area.csv)
+      
+
