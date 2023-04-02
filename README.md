@@ -160,7 +160,7 @@ for example:
 3. Parse FoldX output and save DDG to CSV file.   
 ``python compute_ddG_antidody.py {foldx output directory}``   
 for example:
-``python compute_ddG_antidody.py /Users/natalieso/Downloads/part_3_remote/``
+``python compute_ddG_antidody.py /Users/natalieso/Downloads/dir_antibodies_only_foldx_output/``
     - Output file:
       - [empty_ddg_rows.csv](empty_ddg_rows.csv)
       - [FoldX.csv](FoldX.csv)  
