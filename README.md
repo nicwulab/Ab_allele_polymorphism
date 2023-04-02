@@ -15,7 +15,7 @@ conda create -n Abs \
   biopython \
   pandas \
   igblast \
-  anarci \
+  anarci
 ```
 
 ## Input files 
