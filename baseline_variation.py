@@ -120,7 +120,7 @@ def main():
     epitope_identification_with_group_id_df['groupID'] = epitope_identification_with_group_id_df['groupID'].astype(str).apply(lambda x: x.replace('.0', ''))
     epitope_identification_with_group_id_df['groupID'] = epitope_identification_with_group_id_df['groupID'].astype(str).apply(lambda x: x.replace('nan', ''))
 
-    epitope_identification_with_group_id_df.to_csv('epitope_identification_with_baseline_variation.csv')
+    epitope_identification_with_group_id_df.to_csv('results/epitope_identification_with_baseline_variation.csv')
 
 
 if __name__ == "__main__":

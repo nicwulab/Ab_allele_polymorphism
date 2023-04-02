@@ -6,9 +6,6 @@ import sys
 from itertools import combinations
 from itertools import permutations
 
-
-
-
 def main(pdb_dir, mkdssp_dir):
     file_format = '.pdb'
     p = PDBParser()
