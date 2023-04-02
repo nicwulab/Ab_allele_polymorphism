@@ -196,7 +196,7 @@ def main():
     plot_baseline_freq_species_sinaplot(baseline_freq_species)
 
 
-    dssp_area = pd.read_csv('add_dssp_area.csv')
+    dssp_area = pd.read_csv('results/add_dssp_area.csv')
     dssp_area['DDG'] = dssp_area['DDG'].astype('float64')
     dssp_area['DDG_antibody'] = dssp_area['DDG_antibody'].astype('float64')
     sns.set(rc={'font.family': 'Arial', 'font.size': 7})
