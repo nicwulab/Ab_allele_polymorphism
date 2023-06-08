@@ -1,6 +1,6 @@
 ## Analyzing the effect of allelic polymorphisms on antibody binding activity
 This README describes the deep sequencing analysis in:  
-[https://www.biorxiv.org/content/10.1101/2023.06.06.543969v1](https://www.biorxiv.org/content/10.1101/2023.06.06.543969v1)
+[Widespread impact of immunoglobulin V gene allelic polymorphisms on antibody reactivity](https://www.biorxiv.org/content/10.1101/2023.06.06.543969v1)
 
 ### Dependencies ###
 * [python](https://www.python.org/) (version 3.9)
