@@ -1,4 +1,6 @@
-# Ab_allele
+## Analyzing the effect of allelic polymorphisms on antibody binding activity
+This README describes the deep sequencing analysis in:  
+[https://www.biorxiv.org/content/10.1101/2023.06.06.543969v1](https://www.biorxiv.org/content/10.1101/2023.06.06.543969v1)
 
 ### Dependencies ###
 * [python](https://www.python.org/) (version 3.9)
@@ -173,9 +175,9 @@ results/epitope_identification_with_antibody_only_ddgs.csv
     - Output file:
       - [results/epitope_identification_with_antibody_only_ddgs.csv](results/epitope_identification_with_antibody_only_ddgs.csv)
 
-## Add DSSP RSA
+## Add resolution, RSA, and antigen species information
 
-1. Run add_antibody_dssp.py to get RSA from DSSP for each entry in results/epitope_identification_with_antibody_only_ddgs.csv.   
+1. Run add_antibody_dssp.py to get RSA from DSSP of the antibody apo form for each entry in results/epitope_identification_with_antibody_only_ddgs.csv.   
 ``python add_antibody_dssp.py {pdb_dir} {mkdssp_dir}``   
 for example:
 ``python add_antibody_dssp.py /Users/natalieso/Downloads/20230217_0084705/ /Users/natalieso/Downloads/dssp-3.1.4/mkdssp``
@@ -185,4 +187,49 @@ for example:
     - Output files:
       - [results/add_dssp_area.csv](results/add_dssp_area.csv)
       
+2. Run add_antigen_ID.py to add resolution and antigen species information.   
+``python add_antigen_ID.py``   
+    - Input files:
+      - [results/add_dssp_area.csv](results/add_dssp_area.csv)
+      - [doc/species_ID.xlsx](doc/species_ID.xlsx)
+      - [doc/antigen_name_ID.xlsx](doc/antigen_name_ID.xlsx)
+      - [doc/resolution.xlsx](doc/resolution.xlsx)
+      - [doc/abbreviate_ID.xlsx](doc/abbreviate_ID.xlsx)
+      - [doc/known_examples.xlsx](doc/known_examples.xlsx)
+    - Output file:
+      - [results/allele_var_info_table_final.csv](results/allele_var_info_table_final.csv)
 
+## Plotting
+
+1. Plot the antigen species and distribution of resolution of the analyzed structures.   
+``Rscript plot_summary.R``   
+    - Input files:
+      - [results/allele_var_info_table_final.csv](results/allele_var_info_table_final.csv)
+    - Output files:
+      - [graph/summary_antigen.png](graph/summary_antigen.png)
+      - [graph/summary_resolution.png](graph/summary_resolution.png)
+
+2. Plot the distribution of DDG.  
+``Rscript plot_DDG_dist.R``   
+    - Input files:
+      - [results/allele_var_info_table_final.csv](results/allele_var_info_table_final.csv)
+    - Output files:
+      - [graph/ddg_scatterplot.png](graph/ddg_scatterplot.png)
+      - [graph/ddg_distribution.png](graph/ddg_distribution.png)
+      - [graph/ddg_vs_resolution.png](graph/ddg_vs_resolution.png)
+
+3. Plot the allele usage for IGV genes of interest among antibodies in GenBank.   
+``Rscript plot_allele_usage.R``   
+    - Input files:
+      - [results/baseline_variation/baseline_variation_table_1.csv](results/baseline_variation/baseline_variation_table_1.csv)
+      - [data/anarci_igv_output.csv_H.csv](data/anarci_igv_output.csv_H.csv)
+      - [data/anarci_igv_output.csv_KL.csv](data/anarci_igv_output.csv_KL.csv)
+    - Output files:
+      - graph/allele_usage_*.png
+
+4. Plot DDG distribution for allelic variants of interest.   
+``python plot_antigen_germline.R``   
+    - Input files:
+      - [results/allele_var_info_table_final.csv](results/allele_var_info_table_final.csv)
+    - Output files:
+      - graph/DDG_vs_mut_*.png
