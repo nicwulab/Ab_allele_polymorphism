@@ -206,6 +206,11 @@ for example:
       - [results/nan_antigen_chain.txt](results/nan_antigen_chain.txt)
       - [results/allele_var_info_table_final.csv](results/allele_var_info_table_final.csv)
 
+4. Generate summary statistics of the dataset.   
+``summary_stats.py``
+    - Input file:
+      - [results/allele_var_info_table_final.csv](results/allele_var_info_table_final.csv)
+
 ## Plotting
 
 1. Plot the antigen species and distribution of resolution of the analyzed structures.   
